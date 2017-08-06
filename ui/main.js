@@ -1,5 +1,8 @@
 console.log('Loaded!');
 
+//Submit Comment
+
+
 // Move the image
 
 var img = document.getElementById('madi');

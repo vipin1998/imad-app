@@ -9,9 +9,10 @@ var articles =
 { 
     'articleOne' : 
     {
-      title : 'Article-one',
+      title : 'articleOne',
       heading : 'Article-one',
       date : 'August 6 , 2017',
+      comments : [],
       content : `
                     <p>
                         This is content of Article one. This is content of Article one.
@@ -35,9 +36,10 @@ var articles =
     },
     'articleTwo' : 
     {
-      title : 'Article-two',
+      title : 'articleTwo',
       heading : 'Article-two',
       date : 'August 6 , 2017',
+      comments : [],
       content : `
                     <p>
                         This is content of Article two. This is content of Article two.
@@ -61,9 +63,10 @@ var articles =
     },
     'articleThree' : 
     {
-      title : 'Article-three',
+      title : 'articleThree',
       heading : 'Article-three',
       date : 'August 6 , 2017',
+      comments : [],
       content : `
                     <p>
                         This is content of Article three. This is content of Article three.
@@ -93,7 +96,6 @@ function createTemplate(data) {
   var date = data.date;
   var heading = data.heading;
   var content = data.content;
-
   var htmltemplate = `
         <html>
             <head>
@@ -119,6 +121,46 @@ function createTemplate(data) {
                     </div>
                     <div>
                         ${content}
+                    </div>
+                    <div>
+                        <h3> Submit Comment </h3>
+                        <input type="text" id="comment" placeholder="Enter Comment"></input>
+                        <input type="submit" id="submit_comment" value="Submit"></input>
+                        <script>
+                        var submit = document.getElementById('submit_comment')
+                        submit.onclick = function()
+                        {
+                            var commentInput = document.getElementById('comment')
+                            var comment = commentInput.value;
+                            var request = new XMLHttpRequest();
+                            request.onreadystatechange = function()
+                            {
+                                if(request.readyState === XMLHttpRequest.DONE)
+                                    {
+                                        if(request.status === 200)
+                                            {
+                                            var comments = request.responseText;
+                                            comments = JSON.parse(comments); 
+                                                var all_comments = '';
+                                                for(var i = 0;i<comments.length;i++)
+                                                    {
+                                                        all_comments += '<li>' + comments[i] + '</li>'
+                                                    }
+                                                var ul = document.getElementById('comment_list');
+                                                ul.innerHTML =all_comments ;  
+                                            }
+                                    }
+                            }
+                            var url = '/submitComment/${title}?comment='+comment
+                            request.open('GET' , url  , true);
+                            request.send(null);
+                        }
+                        </script>
+                    </div>
+                    <div>
+                        <h3> Comments </h3>
+                        <ul id="comment_list"> </ul>
+
                     </div>
                 </div>
             </body>
@@ -146,6 +188,14 @@ app.get('/submitName' , function(req,res)
     var name = req.query.name;
     names.push(name);
     res.send(JSON.stringify(names));
+});
+
+app.get('/submitComment/:article' , function(req,res)
+{
+    var article = req.params.article;
+    var comment = req.query.comment;
+    articles[article].comments.push(comment)
+    res.send(JSON.stringify(articles[article].comments));
 });
 
 app.get('/ui/style.css', function (req, res) {
