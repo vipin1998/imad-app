@@ -194,7 +194,7 @@ app.get('/submitComment/:article' , function(req,res)
 {
     var article = req.params.article;
     var comment = req.query.comment;
-    articles[article].comments.push(comment)
+    articles[article].comments.push(comment);
     res.send(JSON.stringify(articles[article].comments));
 });
 
