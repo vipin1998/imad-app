@@ -221,7 +221,7 @@ app.get('/submitName' , function(req,res)
        }
        else
        {
-           pool.query('SELECT * FROM name' , function (err , result)
+           pool.query('SELECT name FROM name' , function (err , result)
            {
                res.send(JSON.stringify(result.rows));
            });
