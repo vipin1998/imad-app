@@ -74,5 +74,5 @@ submit.onclick = function()
             }
     }
     request.open('GET' , '/submitName?name='+name , true);
-    request.send(null);
+    //request.send(null);
 }
