@@ -195,7 +195,7 @@ app.get('/testDb' , function (req,res)
        }
        else
        {
-           res.send("Success");
+           res.send(JSON.stringify(result.rows));
        }
        
     });
