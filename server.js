@@ -213,7 +213,7 @@ app.get('/counter' , function (req , res)
 app.get('/submitName' , function(req,res)
 {
     var name = req.query.name;
-    pool.query('INSERT INTO name (name) VALUES (' + name + ')' , function (submit_err )
+    pool.query("INSERT INTO name (name) VALUES ('" + name + "')" , function (submit_err )
     {
        if(submit_err)
        {
