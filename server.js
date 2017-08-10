@@ -187,7 +187,9 @@ app.get('/', function (req, res) {
 app.get('/testDb' , function (req,res)
 {
     var name = req.query.name;
-    pool.query("INSERT INTO name (name) VALUES (" + name + ")" , function(err , result)
+    var cmd = "INSERT INTO name (name) VALUES (" + name + ")"
+    console.log(cmd);
+    pool.query(cmd , function(err , result)
     {
        if(err)
        {
