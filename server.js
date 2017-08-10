@@ -209,15 +209,23 @@ app.get('/counter' , function (req , res)
 });
 
 
-
-
-var names = []
-
 app.get('/submitName' , function(req,res)
 {
     var name = req.query.name;
-    names.push(name);
-    res.send(JSON.stringify(names));
+    pool.query('INSERT INTO "name" ("name") VALUES (' + name + ')' , function (submit_err )
+    {
+       if(submit_err)
+       {
+           res.status(500).send(err.toString());
+       }
+       else
+       {
+           pool.query('SELECT * FROM name' , function (err , result)
+           {
+               res.send(JSON.stringify(result));
+           });
+       }
+    });
 });
 
 app.get('/submitComment/:article' , function(req,res)
