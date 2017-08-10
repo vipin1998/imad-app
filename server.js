@@ -1,9 +1,20 @@
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
+var Pool = require('pg').Pool;
 
 var app = express();
 app.use(morgan('dev'));
+
+var config = {
+    user : 'vipindhangar1998',
+    database : 'vipindhangar1998',
+    host : 'db.imad.hasura-app.io',
+    port : '5432',
+    password : process.env.DB_PASSWORD
+};
+
+var pool = new Pool(config);
 
 var articles =
 { 
@@ -173,6 +184,22 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
+app.get('/testDb' , function (req,res)
+{
+    pool.query('SELECT * FROM name' , function(err , result)
+    {
+       if(err)
+       {
+           res.status(500).send(err.toString());
+       }
+       else
+       {
+           res.send(JSON.stringify(result));
+       }
+       
+    });
+});
+
 
 var counter = 0;
 app.get('/counter' , function (req , res)
@@ -180,6 +207,9 @@ app.get('/counter' , function (req , res)
     counter = counter + 1;
     res.send(counter.toString());
 });
+
+
+
 
 var names = []
 
