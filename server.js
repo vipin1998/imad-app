@@ -186,7 +186,8 @@ app.get('/', function (req, res) {
 
 app.get('/testDb' , function (req,res)
 {
-    pool.query('SELECT * FROM name' , function(err , result)
+    var name = req.query.name;
+    pool.query('INSERT INTO name (name) VALUES (' + name + ')' , function(err , result)
     {
        if(err)
        {
@@ -194,7 +195,7 @@ app.get('/testDb' , function (req,res)
        }
        else
        {
-           res.send(JSON.stringify(result.rows));
+           res.send("Success");
        }
        
     });
