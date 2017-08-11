@@ -184,22 +184,6 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/testDb' , function (req,res)
-{
-    var name = req.query.name;
-    pool.query('select name from name' , function(err , result)
-    {
-       if(err)
-       {
-           res.status(500).send(err.toString());
-       }
-       else
-       {
-           res.send(JSON.stringify(result.rows));
-       }
-       
-    });
-});
 
 
 var counter = 0;
