@@ -125,11 +125,12 @@ function createTemplate(data) {
                     </div>
                     <hr/>
                     <h3>
-                        ${category}
+                        ${title}
                     </h3>
                     <div>
                         ${date}
                     </div>
+                    <hr/>
                     <div>
                         ${content}
                     </div>
