@@ -72,7 +72,7 @@ function createTemplate(data) {
                                                 var all_comments = '';
                                                 for(var i = 0;i<comments.length;i++)
                                                     {
-                                                        all_comments += '<li>' + comments[i] + '</li>'
+                                                        all_comments += '<li>' + comments[i]["content"] + '</li>'
                                                     }
                                                 var ul = document.getElementById('comment_list');
                                                 ul.innerHTML =all_comments ;  
