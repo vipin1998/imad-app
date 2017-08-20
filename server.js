@@ -22,6 +22,7 @@ function createTemplate(data) {
   var date = data.date;
   var category = data.category_id;
   var content = data.content;
+  var article_id = data.article_id;
   var htmltemplate = `
         <html>
             <head>
@@ -78,7 +79,7 @@ function createTemplate(data) {
                                             }
                                     }
                             }
-                            var url = '/submitComment/${title}?comment='+comment
+                            var url = '/submitComment/${article_id}?comment='+comment
                             request.open('GET' , url  , true);
                             request.send(null);
                         }
@@ -129,10 +130,25 @@ app.get('/submitName' , function(req,res)
     });
 });
 
-app.get('/submitComment/:article' , function(req,res)
+app.get('/submitComment/:article_id' , function(req,res)
 {
-    var article = req.params.article;
+    var article_id = req.params.article_id;
     var comment = req.query.comment;
+    pool.query("INSERT INTO comment (article_id , content , user_id ) VALUES ('"+article_id+','+comment+"',1)", function(err)
+    {
+       if(err)
+       {
+           res.status(500).send(err.toString());
+       }
+       else
+       {
+           pool.query('SELECT content FROM comment WHERE article_id = $1' , [article_id] , function (err , result)
+           {
+               res.send(JSON.stringify(result.rows));
+           });
+       }
+    });
+    
     articles[article].comments.push(comment);
     res.send(JSON.stringify(articles[article].comments));
 });
