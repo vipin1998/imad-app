@@ -201,7 +201,7 @@ app.get('/submitName' , function(req,res)
     {
        if(submit_err)
        {
-           res.status(500).send(err.toString());
+           res.status(500).send(submit_err.toString());
        }
        else
        {
@@ -232,9 +232,18 @@ app.get('/ui/madi.png', function (req, res) {
 app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
 });
-app.get('/:articleName' , function(req ,res)
+app.get('/articles/:articleName' , function(req ,res)
 {
   var article_name = req.params.articleName;
+  
+  pool.query("SELECT * FROM article WHERE title = " + article_name ,  function (err , result)
+  {
+      if(err)
+      {
+          res.status(500).send(err.toString());
+      }
+  });
+  
   res.send(createTemplate(articles[article_name]));
 });
 
