@@ -134,7 +134,7 @@ app.get('/submitComment/:article_id' , function(req,res)
 {
     var article_id = req.params.article_id;
     var comment = req.query.comment;
-    pool.query("INSERT INTO comment (article_id , content , user_id ) VALUES ('"+article_id+','+comment+"',1)", function(err)
+    pool.query("INSERT INTO comment (article_id , content , user_id ) VALUES ($1,$2,1)",[article_id,comment] , function(err)
     {
        if(err)
        {
