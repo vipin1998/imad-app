@@ -235,7 +235,7 @@ app.get('/ui/main.js', function (req, res) {
 app.get('/articles/:articleName' , function(req ,res)
 {
   var article_name = req.params.articleName;
-  pool.query("SELECT * FROM article WHERE title = " + article_name ,  function (err , result)
+  pool.query("SELECT * FROM article WHERE title = '" + article_name +"'" ,  function (err , result)
   {
       if(err)
       {
@@ -247,10 +247,14 @@ app.get('/articles/:articleName' , function(req ,res)
           {
               res.status(404).send('Article not Found');
           }
+          else
+          {
+              var articleData = result.rows[0];
+              res.send(createTemplate(articleData));
+              
+          }
       }
   });
-  
-  res.send(createTemplate(articles[article_name]));
 });
 
 // Do not change port, otherwise your app won't run on IMAD servers
