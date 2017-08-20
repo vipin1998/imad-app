@@ -151,7 +151,7 @@ app.get('/ui/main.js', function (req, res) {
 app.get('/articles/:articleName' , function(req ,res)
 {
   var article_name = req.params.articleName;
-  pool.query("SELECT * FROM article WHERE title = $1" + [article_name] ,  function (err , result)
+  pool.query("SELECT * FROM article WHERE title = $1" , [article_name] ,  function (err , result)
   {
       if(err)
       {
