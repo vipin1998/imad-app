@@ -149,8 +149,6 @@ app.get('/submitComment/:article_id' , function(req,res)
        }
     });
     
-    articles[article].comments.push(comment);
-    res.send(JSON.stringify(articles[article].comments));
 });
 
 app.get('/ui/style.css', function (req, res) {
