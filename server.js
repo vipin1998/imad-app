@@ -101,7 +101,13 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
+app.get('/login', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'login.html'));
+});
 
+app.get('/signup', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'signup.html'));
+});
 
 var counter = 0;
 app.get('/counter' , function (req , res)
