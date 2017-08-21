@@ -3,9 +3,11 @@ var morgan = require('morgan');
 var path = require('path');
 var Pool = require('pg').Pool;
 var crypto = require('crypto');
+var bodyParser = require('body-parser');
 
 var app = express();
 app.use(morgan('dev'));
+app.use(bodyParser.json());
 
 var config = {
     user : 'vipindhangar1998',
@@ -111,6 +113,7 @@ app.get('/ui/signup', function (req, res) {
 });
 
 
+
 app.get('/ui/login.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'login.js'));
 });
@@ -129,6 +132,25 @@ app.get('/hash/:input' , function (req ,res )
 {
    var hashedString = hash(req.params.input , 'This is Vipin');
    res.send(hashedString);
+});
+
+app.post('/create-user' , function (req,res)
+{
+   var mobile = req.body.mobile;
+   var password = req.body.password;
+   var salt = crypto.getRandomBytes(128).toString('hex');
+   var dbString = hash(password , salt) ;
+   pool.query('INSERT INTO users (mobile , password ) VALUES ($1,$2)' , [mobile , dbString] , function (err ,resule)
+   {
+      if(err)
+      {
+          res.status(500).send(submit_err.toString());
+      }
+      else
+      {
+          res.send('Reg Success');
+      }
+   });
 });
 
 
