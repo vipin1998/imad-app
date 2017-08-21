@@ -109,9 +109,15 @@ app.get('/ui/signup', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'signup.html'));
 });
 
-app.get('/ui/login.css', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'login.css'));
+
+app.get('/ui/login.js', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'login.js'));
 });
+
+app.get('/ui/signup.js', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'signup.js'));
+});
+
 
 var counter = 0;
 app.get('/counter' , function (req , res)
