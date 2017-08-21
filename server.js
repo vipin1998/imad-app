@@ -118,9 +118,7 @@ app.get('/submitName' , function(req,res)
     {
        if(submit_err)
        {
-           alert("Email already Exist");
-           console.log("Email already Exist");
-           //res.status(500).send(submit_err.toString());
+           res.status(500).send(submit_err.toString());
        }
        else
        {
