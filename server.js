@@ -113,8 +113,8 @@ app.get('/counter' , function (req , res)
 
 app.get('/submitName' , function(req,res)
 {
-    var name = req.query.name;
-    pool.query("INSERT INTO name (name) VALUES ('" + name + "')" , function (submit_err )
+    var email = req.query.name;
+    pool.query("INSERT INTO email (email) VALUES ('" + email + "')" , function (submit_err )
     {
        if(submit_err)
        {
@@ -122,7 +122,7 @@ app.get('/submitName' , function(req,res)
        }
        else
        {
-           pool.query('SELECT name FROM name' , function (err , result)
+           pool.query('SELECT email FROM email' , function (err , result)
            {
                res.send(JSON.stringify(result.rows));
            });
