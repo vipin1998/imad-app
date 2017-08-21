@@ -101,12 +101,16 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/login', function (req, res) {
+app.get('/ui/login', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'login.html'));
 });
 
-app.get('/signup', function (req, res) {
+app.get('/ui/signup', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'signup.html'));
+});
+
+app.get('/ui/login.css', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'login.css'));
 });
 
 var counter = 0;
