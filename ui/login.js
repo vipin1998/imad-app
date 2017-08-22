@@ -4,10 +4,6 @@ var submit = document.getElementById('login_btn');
 submit.onclick = function()
 {
     
-    var mobileInput = document.getElementById('mobile');
-    var mobile = mobileInput.value;
-    var pswInput = document.getElementById('psw');
-    var password = pswInput.value;
     var request = new XMLHttpRequest();
     request.onreadystatechange = function()
     {
@@ -21,12 +17,16 @@ submit.onclick = function()
                 {
                     alert('Something went Wrong');
                 }
-                else
+                else if(request.status === 403)
                 {
                     alert("Invalid data");
                 }
             }
     };
+    var mobileInput = document.getElementById('mobile');
+    var mobile = mobileInput.value;
+    var pswInput = document.getElementById('psw');
+    var password = pswInput.value;
     request.open('POST' , '/login' , true);
     request.setRequestHeader('Content-Type' , 'application/json');
     request.send(JSON.stringify({mobile : mobile , password : password}));
