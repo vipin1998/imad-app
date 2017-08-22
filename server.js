@@ -153,6 +153,24 @@ app.post('/create-user' , function (req,res)
    });
 });
 
+app.post('/login' , function (req,res)
+{
+   var mobile = req.body.mobile;
+   var password = req.body.password;
+   pool.query('SELECT * FROM users WHERE mobile = $1 ' , [mobile] , function (err ,result)
+   {
+      if(err)
+      {
+          res.status(500).send(submit_err.toString());
+      }
+      else
+      {
+          
+          res.send('Reg Success');
+      }
+   });
+});
+
 
 var counter = 0;
 app.get('/counter' , function (req , res)
