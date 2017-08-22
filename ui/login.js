@@ -11,15 +11,15 @@ submit.onclick = function()
             {
                 if(request.status === 200)
                     {
-                       alert('Login Success');
+                       console.log('Login Success');
                     }
                 else if(request.status === 500)
                 {
-                    alert('Something went Wrong');
+                    console.log('Something went Wrong');
                 }
                 else if(request.status === 403)
                 {
-                    alert("Invalid data");
+                    consloe.log("Invalid data");
                 }
             }
     };
