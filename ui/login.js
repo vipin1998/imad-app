@@ -28,5 +28,5 @@ submit.onclick = function()
             }
     };
     request.open('POST' , '/login' , true);
-    request.send(JSON.strinfigy({mobile : mobile , password : password}));
+    request.send(JSON.stringify({mobile : mobile , password : password}));
 };
