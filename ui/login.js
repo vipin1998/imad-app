@@ -28,6 +28,6 @@ submit.onclick = function()
             }
     };
     request.open('POST' , '/login' , true);
-    request.setRequestHeader('Content-Type : application/json');
+    request.setRequestHeader('Content-Type' ,  'application/json');
     request.send(JSON.stringify({mobile : mobile , password : password}));
 };
