@@ -8,6 +8,8 @@ submit.onclick = function()
     var mobile = mobileInput.value;
     var pswInput = document.getElementById('psw');
     var password = pswInput.value;
+    console.log(mobile);
+    console.log(password);
     var request = new XMLHttpRequest();
     request.onreadystatechange = function()
     {
