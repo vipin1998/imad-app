@@ -23,11 +23,10 @@ submit.onclick = function()
                 {
                     alert('Something went Wrong');
                 }
-                /*
                 else
                 {
                     alert("Invalid data");
-                }*/
+                }
             }
     };
     request.open('POST' , '/login' , true);
