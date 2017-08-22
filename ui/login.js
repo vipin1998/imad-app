@@ -19,7 +19,7 @@ submit.onclick = function()
                 }
                 else if(request.status === 403)
                 {
-                    alert("Invalid data");
+                    alert("Invalid username/password");
                 }
             }
     };
