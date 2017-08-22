@@ -4,11 +4,15 @@ var path = require('path');
 var Pool = require('pg').Pool;
 var crypto = require('crypto');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({
+    secret : "SomeRandomString",
+    cookie : { maxAge : 1000*60*60*24*30 }
+}))
 
 var config = {
     user : 'vipindhangar1998',
@@ -177,6 +181,7 @@ app.post('/login' , function (req,res)
               var hashedPassword = hash(password,salt);
               if(hashedPassword === dbString)
               {
+                  req.session.auth = { userId : result.rows[0].id }
                   res.send('LOGIN SUCCESS');
               }
               else
@@ -186,6 +191,23 @@ app.post('/login' , function (req,res)
           }
       }
    });
+});
+
+app.get('/check-login' , function(req , res)
+{
+    if(req.session && req.session.auth && req.session.auth.userId )
+    {
+        res.send('You are logged in');
+    }
+    else
+    {
+        res.send('You are logged Out');
+    }
+});
+
+app.get('/logout' , function(req , res)
+{
+    
 });
 
 
