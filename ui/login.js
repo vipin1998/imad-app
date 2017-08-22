@@ -27,7 +27,7 @@ submit.onclick = function()
     var mobile = mobileInput.value;
     var pswInput = document.getElementById('psw');
     var password = pswInput.value;
-    request.open('POST' , '/login' , true);
+    request.open('POST' , 'http://vipindhangar1998.imad.hasura-app.io/login' , true);
     request.setRequestHeader('Content-Type' , 'application/json');
     request.send(JSON.stringify({mobile : mobile , password : password}));
 };
