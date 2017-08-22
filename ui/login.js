@@ -1,4 +1,4 @@
-
+console.log('login.js loaded')
 var submit = document.getElementById('login_btn');
 
 submit.onclick = function()
