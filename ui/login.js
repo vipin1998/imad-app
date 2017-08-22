@@ -15,23 +15,18 @@ submit.onclick = function()
             {
                 if(request.status === 200)
                     {
-                       var names = request.responseText;
-                       names = JSON.parse(names); 
-                        var list = ''
-                        
-                        for (var i = 0;i<names.length ;i++)
-                            {
-                                list  += '<li>' + names[i]["email"] + '</li>'
-                            }
-                        var ul = document.getElementById('name_list');
-                        ul.innerHTML = list;  
+                       alert('Login Success');
                     }
+                else if(request.status === 500)
+                {
+                    alert('Something went Wrong');
+                }
                 else
                 {
-                    alert("Email already Exist");
+                    alert("Invalid data");
                 }
             }
-    }
-    request.open('POST' , '/submitName?name='+name , true);
+    };
+    request.open('POST' , '/login' , true);
     request.send(JSON.strinfigy({mobile : mobile , password : password}));
-}
+};
