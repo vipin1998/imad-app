@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 var config = {
     user : 'vipindhangar1998',
@@ -138,12 +139,6 @@ app.post('/create-user' , function (req,res)
 {
    var mobile = req.body.mobile;
    var password = req.body.password;
-   console.log()
-   console.log()
-   console.log(mobile);
-   console.log(password);
-   console.log()
-   console.log()
    var salt = crypto.randomBytes(128).toString('hex');
    var dbString = hash(password , salt) ;
    pool.query('INSERT INTO users (mobile , password ) VALUES ($1,$2)' , [mobile , dbString] , function (err ,result)
