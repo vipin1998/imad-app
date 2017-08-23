@@ -5,6 +5,8 @@ var Pool = require('pg').Pool;
 var crypto = require('crypto');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+const SendOtp = require('sendotp');
+const sendOtp = new SendOtp('AuthKey', 'Otp for your order is {{otp}}, please do not share it with anybody');
 
 var app = express();
 app.use(morgan('dev'));
@@ -133,11 +135,14 @@ function hash (input , salt)
     return ['pbkdf2','10000',salt ,hashed.toString('hex')].join('$');
 }
 
-app.get('/hash/:input' , function (req ,res )
+app.post('/send-otp' , function (req,res)
 {
-   var hashedString = hash(req.params.input , 'This is Vipin');
-   res.send(hashedString);
-});
+    var mobile = req.body.mobile;
+    sendOtp.send(mobile, "PRIIND", function (error, data, response) 
+    {
+        console.log(data);
+    });
+})
 
 app.post('/create-user' , function (req,res)
 {
