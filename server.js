@@ -6,7 +6,7 @@ var crypto = require('crypto');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 const SendOtp = require('sendotp');
-const sendOtp = new SendOtp('AuthKey', 'Otp for your order is {{otp}}, please do not share it with anybody');
+const sendOtp = new SendOtp('171243A759wkov9CRb599d2a6c', 'Otp for your order is {{otp}}, please do not share it with anybody');
 
 var app = express();
 app.use(morgan('dev'));
