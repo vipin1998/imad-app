@@ -5,8 +5,18 @@ var Pool = require('pg').Pool;
 var crypto = require('crypto');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-//const SendOtp = require('sendotp');
-//const sendOtp = new SendOtp('171243A759wkov9CRb599d2a6c', 'Otp for your order is {{otp}}, please do not share it with anybody');
+
+
+var speakeasy = require("speakeasy");
+var secret = speakeasy.generateSecret({length: 20});
+
+
+const API_KEY = '171243A759wkov9CRb599d2a6c';
+const SENDER_ID = "VERIFY";
+const ROUTE_NO = 4;
+var msg91 = require("msg91")(API_KEY, SENDER_ID, ROUTE_NO );
+
+
 
 var app = express();
 app.use(morgan('dev'));
@@ -138,11 +148,58 @@ function hash (input , salt)
 app.post('/send-otp' , function (req,res)
 {
     var mobile = req.body.mobile;
-    sendOtp.send(mobile, "PRIIND", function (error, data, response) 
-    {
-        console.log(data);
+    var token = speakeasy.totp({
+            secret: secret.base32,
+            encoding: 'base32'
+        });
+    var OTP = token.toString();
+
+    var MESSAGE = "Welcome to VipinApp. your OTP is "+OTP;
+    //console.log(OTP);
+    //res.send(OTP);
+    
+    msg91.send(mobile, MESSAGE, function(err, response){
+        res.json({
+            "message" : "Otp is sent successfully"
+        })
     });
+
 })
+
+app.post('/verify-otp' , function (req,res)
+{
+    var otp = req.body.otp;
+    var mobile = req.body.mobile;
+    var password = req.body.password;
+    var salt = crypto.randomBytes(128).toString('hex');
+    var dbString = hash(password , salt) ;
+    var tokenValidates = speakeasy.totp.verify({
+        secret: secret.base32,
+        encoding: 'base32',
+        token: otp,
+        window: 6
+    });
+    if(tokenValidates == true)
+    {
+        //res.send('success');
+    
+        pool.query('INSERT INTO users (mobile , password ) VALUES ($1,$2)' , [mobile , dbString] , function (err ,result)
+        {
+            if(err)
+            {
+                res.status(404).send(err.toString());
+            }
+            else
+            {
+                res.send('Reg Success');
+            }
+        });
+    }
+    else
+    {
+        res.status(403).send("OTP did not match");
+    }
+});
 
 app.post('/create-user' , function (req,res)
 {
