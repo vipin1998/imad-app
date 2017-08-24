@@ -179,7 +179,7 @@ app.post('/verify-otp' , function (req,res)
         token: otp,
         window: 6
     });
-    if(tokenValidates == true)
+    if(tokenValidates ==- true)
     {
         //res.send('success');
     
