@@ -14,7 +14,7 @@ var secret = speakeasy.generateSecret({length: 20});
 const API_KEY = '171243A759wkov9CRb599d2a6c';
 const SENDER_ID = "VERIFY";
 const ROUTE_NO = 4;
-//var msg91 = require("msg91")(API_KEY, SENDER_ID, ROUTE_NO );
+var msg91 = require("msg91")(API_KEY, SENDER_ID, ROUTE_NO );
 
 
 
