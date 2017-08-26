@@ -86,7 +86,7 @@ var register = `<div align = "right">
                     <a href="/ui/signup" > SignUp</a>
                 </div>`;
 var logout = `<div align = "right">
-                    <a href="/logout">LogOut </a>
+                    <button id="logout"> LogOut </button>
                 </div>`;
 
 var elem = document.getElementById('show');
@@ -97,9 +97,9 @@ var elem = document.getElementById('show');
         if(request.readyState === XMLHttpRequest.DONE)
             {
                 if(request.status === 200)
-                    {
-                        elem.innerHTML = logout;
-                    }
+                {
+                    elem.innerHTML = logout;
+                }
                 else
                 {
                     elem.innerHTML = register;
@@ -108,4 +108,23 @@ var elem = document.getElementById('show');
     }
     request.open('GET' , '/check-login' , true);
     request.send(null);
+
+ var logout_btn = document.getElementById('logout')
+
+ logout_btn.onclick = function()
+ {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function()
+    {
+        if(request.readyState === XMLHttpRequest.DONE)
+            {
+                if(request.status === 200)
+                {
+                    alert('logout SuccessFully');
+                }
+            }
+    }
+    request.open('GET' , '/logout' , true);
+    request.send(null);
+ }
 
