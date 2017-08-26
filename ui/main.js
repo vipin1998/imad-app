@@ -46,7 +46,7 @@ button.onclick = function()
 
 //submit name
 
-var submit = document.getElementById('submit')
+var submit = document.getElementById('submit');
 
 submit.onclick = function()
 {
@@ -76,55 +76,37 @@ submit.onclick = function()
                     alert("Email already Exist");
                 }
             }
-    }
+    };
     request.open('GET' , '/submitName?name='+name , true);
     request.send(null);
-}
+};
 
 var register = `<div align = "right">
                     <a href="/ui/login" >SignIn</a>
                     <a href="/ui/signup" > SignUp</a>
                 </div>`;
 var logout = `<div align = "right">
-                    <button id="lgout"> LogOut </button>
+                    <a href="/logout" >LogOut</a>
                 </div>`;
 
 var elem = document.getElementById('show');
 
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = function()
-    {
-        if(request.readyState === XMLHttpRequest.DONE)
+var request = new XMLHttpRequest();
+request.onreadystatechange = function()
+{
+    if(request.readyState === XMLHttpRequest.DONE)
+        {
+            if(request.status === 200)
             {
-                if(request.status === 200)
-                {
-                    elem.innerHTML = logout;
-                }
-                else
-                {
-                    elem.innerHTML = register;
-                }
+                elem.innerHTML = logout;
             }
-    }
-    request.open('GET' , '/check-login' , true);
-    request.send(null);
-
- var logout_btn = document.getElementById('lgout')
-
- logout_btn.onclick = function()
- {
-    var request = new XMLHttpRequest();
-    request.onreadystatechange = function()
-    {
-        if(request.readyState === XMLHttpRequest.DONE)
+            else
             {
-                if(request.status === 200)
-                {
-                    alert('logout SuccessFully');
-                }
+                elem.innerHTML = register;
             }
-    }
-    request.open('GET' , '/logout' , true);
-    request.send(null);
- }
+        }
+};
+request.open('GET' , '/check-login' , true);
+request.send(null);
+
 
