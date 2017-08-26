@@ -91,11 +91,21 @@ var logout = `<div align = "right">
 
 var elem = document.getElementById('show');
 
-if(req.session && req.session.auth && req.session.auth.userId )
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function()
     {
-        elem.innerHTML = logout;
+        if(request.readyState === XMLHttpRequest.DONE)
+            {
+                if(request.status === 200)
+                    {
+                        elem.innerHTML = logout;
+                    }
+                else
+                {
+                    elem.innerHTML = register;
+                }
+            }
     }
-    else
-    {
-        elem.innerHTML = register;
-    }
+    request.open('GET' , '/check-login' , true);
+    request.send(null);
+
