@@ -6,7 +6,7 @@ var crypto = require('crypto');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
-
+/*
 var speakeasy = require("speakeasy");
 var secret = speakeasy.generateSecret({length: 20});
 
@@ -15,7 +15,7 @@ const API_KEY = '171243A759wkov9CRb599d2a6c';
 const SENDER_ID = "VERIFY";
 const ROUTE_NO = 4;
 var msg91 = require("msg91")(API_KEY, SENDER_ID, ROUTE_NO );
-
+*/
 
 
 var app = express();
@@ -145,6 +145,7 @@ function hash (input , salt)
     return ['pbkdf2','10000',salt ,hashed.toString('hex')].join('$');
 }
 
+/*
 app.post('/send-otp' , function (req,res)
 {
     var mobile = req.body.mobile;
@@ -155,8 +156,6 @@ app.post('/send-otp' , function (req,res)
     var OTP = token.toString();
 
     var MESSAGE = "Welcome to VipinApp. your OTP is "+OTP;
-    //console.log(OTP);
-    //res.send(OTP);
     
     msg91.send(mobile, MESSAGE, function(err, response){
         res.json({
@@ -165,6 +164,7 @@ app.post('/send-otp' , function (req,res)
     });
 
 })
+
 
 app.post('/verify-otp' , function (req,res)
 {
@@ -199,6 +199,26 @@ app.post('/verify-otp' , function (req,res)
     {
         res.status(403).send("OTP did not match");
     }
+});
+*/
+
+app.post('/create-user' , function (req,res)
+{
+   var mobile = req.body.mobile;
+   var password = req.body.password;
+   var salt = crypto.randomBytes(128).toString('hex');
+   var dbString = hash(password , salt) ;
+   pool.query('INSERT INTO users (mobile , password ) VALUES ($1,$2)' , [mobile , dbString] , function (err ,result)
+   {
+      if(err)
+      {
+          res.status(404).send(err.toString());
+      }
+      else
+      {
+          res.send('Reg Success');
+      }
+   });
 });
 
 
