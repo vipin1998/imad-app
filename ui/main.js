@@ -80,3 +80,22 @@ submit.onclick = function()
     request.open('GET' , '/submitName?name='+name , true);
     request.send(null);
 }
+
+var register = `<div align = "right">
+                    <a href="/ui/login" >SignIn</a>
+                    <a href="/ui/signup" > SignUp</a>
+                </div>`;
+var logout = `<div align = "right">
+                    <a href="/logout">LogOut </a>
+                </div>`;
+
+var elem = document.getElementById('show');
+
+if(req.session && req.session.auth && req.session.auth.userId )
+    {
+        elem.innerHTML = logout;
+    }
+    else
+    {
+        elem.innerHTML = register;
+    }
