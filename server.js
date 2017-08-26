@@ -265,7 +265,7 @@ app.get('/check-login' , function(req , res)
     }
     else
     {
-        res.send('You are logged Out');
+        res.status(404).send('You are logged Out');
     }
 });
 
