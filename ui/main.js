@@ -86,7 +86,7 @@ var register = `<div align = "right">
                     <a href="/ui/signup" > SignUp</a>
                 </div>`;
 var logout = `<div align = "right">
-                    <button id="logout"> LogOut </button>
+                    <button id="lgout"> LogOut </button>
                 </div>`;
 
 var elem = document.getElementById('show');
@@ -109,7 +109,7 @@ var elem = document.getElementById('show');
     request.open('GET' , '/check-login' , true);
     request.send(null);
 
- var logout_btn = document.getElementById('logout')
+ var logout_btn = document.getElementById('lgout')
 
  logout_btn.onclick = function()
  {
