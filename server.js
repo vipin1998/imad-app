@@ -246,7 +246,7 @@ app.post('/login' , function (req,res)
               if(hashedPassword === dbString)
               {
                   req.session.auth = { userId : result.rows[0].user_id }
-                  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+                  res.status(200).send('Login Success')
               }
               else
               {
