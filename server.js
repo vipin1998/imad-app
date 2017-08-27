@@ -269,6 +269,27 @@ app.get('/check-login' , function(req , res)
     }
 });
 
+app.get('/welcome' , function(req , res)
+{
+    if(req.session && req.session.auth && req.session.auth.userId )
+    {
+        pool.query('select mobile from users where mobile = $1',[req.session.auth.userId] , function(err , result){
+            if(err)
+                {
+                    res.status(500).send(err.toString());
+                }
+                else
+                {
+                    res.send(JSON.stringify(result.rows))
+                }
+        });
+    }
+    else
+    {
+        res.status(404).send('You are logged Out');
+    }
+});
+
 app.get('/logout' , function(req , res)
 {
     delete req.session.auth;
