@@ -246,7 +246,7 @@ app.post('/login' , function (req,res)
               if(hashedPassword === dbString)
               {
                   req.session.auth = { userId : result.rows[0].user_id }
-                  res.send('LOGIN SUCCESS');
+                  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
               }
               else
               {
@@ -272,7 +272,8 @@ app.get('/check-login' , function(req , res)
 app.get('/logout' , function(req , res)
 {
     delete req.session.auth;
-    res.send('You are logout');
+    //res.send('You are logout');
+    res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
 
