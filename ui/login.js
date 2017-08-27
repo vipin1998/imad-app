@@ -11,7 +11,7 @@ submit.onclick = function()
             {
                 if(request.status === 200)
                     {
-                       alert('Login Success');
+                       alert('Login Success Go To Home');
                     }
                 else if(request.status === 500)
                 {
