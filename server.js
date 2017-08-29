@@ -295,8 +295,41 @@ app.get('/logout' , function(req , res)
 var counter = 0;
 app.get('/counter' , function (req , res)
 {
-    counter = counter + 1;
-    res.send(counter.toString());
+    if(req.session && req.session.auth && req.session.auth.userId)
+    {
+        pool.query('select like from users where user_id = $1' , [req.session.auth.userId] , function (err , result)
+        {
+            if(err)
+            {
+                res.status(500).send('Something Went Wrong');
+            }
+            else
+            {
+                if(result.rows[0]["like"] === true)
+                {
+                    res.status(404).send("Already Liked");
+                }
+                else
+                {
+                    pool.query('update users set "like" = true where user_id = $1' , [req.session.auth.userId] , function(err)
+                    {
+                        if(err)
+                        {
+                            res.status(500).send('Something Went Wrong');
+                        }
+                        else
+                        {
+                            res.send("Success");
+                        }
+                    })
+                }
+            }
+        })
+    }
+    else
+    {
+        res.status(403).send("Please Login");
+    }
 });
 
 
