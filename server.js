@@ -271,6 +271,7 @@ app.get('/check-login' , function(req , res)
 
 app.get('/welcome' , function(req , res)
 {
+    console.log(req.session.auth.userId);
     if(req.session && req.session.auth && req.session.auth.userId )
     {
         pool.query('select mobile from users where mobile = $1',[req.session.auth.userId] , function(err , result){
