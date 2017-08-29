@@ -301,7 +301,7 @@ app.get('/counter' , function (req , res)
         {
             if(err)
             {
-                res.status(500).send('Something Went Wrong');
+                res.status(500).send(err.toString());
             }
             else
             {
@@ -311,11 +311,11 @@ app.get('/counter' , function (req , res)
                 }
                 else
                 {
-                    pool.query('update users set "like" = true where user_id = $1' , [req.session.auth.userId] , function(err)
+                    pool.query('update users set "like" = true where user_id = $1' , [req.session.auth.userId] , function(errr)
                     {
                         if(err)
                         {
-                            res.status(500).send('Something Went Wrong');
+                            res.status(500).send(errr.toString());
                         }
                         else
                         {
