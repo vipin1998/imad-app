@@ -109,4 +109,25 @@ request.onreadystatechange = function()
 request.open('GET' , '/check-login' , true);
 request.send(null);
 
+var welcome = document.getElementById('welcome');
 
+var request = new XMLHttpRequest();
+request.onreadystatechange = function()
+{
+    if(request.readyState === XMLHttpRequest.DONE)
+        {
+            if(request.status === 200)
+            {
+                var name = request.responseText;
+                name = JSON.parse(name);
+                var message = "hello" + name["mobile"];
+                welcome.innerHTML = message;
+            }
+            else
+            {
+                welcome.innerHTML = "";
+            }
+        }
+};
+request.open('GET' , '/welcome' , true);
+request.send(null);
