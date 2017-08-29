@@ -120,8 +120,8 @@ request.onreadystatechange = function()
             {
                 var name = request.responseText;
                 name = JSON.parse(name);
-                var message = "hello" + name["mobile"];
-                welcome.innerHTML = message;
+                var message = "Hello" + name["mobile"];
+                welcome.innerHTML = "<b>"+message + "</b>";
                 elem.innerHTML = logout;
             }
             else
