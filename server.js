@@ -257,17 +257,6 @@ app.post('/login' , function (req,res)
    });
 });
 
-app.get('/check-login' , function(req , res)
-{
-    if(req.session && req.session.auth && req.session.auth.userId )
-    {
-        res.send('You are logged in');
-    }
-    else
-    {
-        res.status(404).send('You are logged Out');
-    }
-});
 
 app.get('/welcome' , function(req , res)
 {
