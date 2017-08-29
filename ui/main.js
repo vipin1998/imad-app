@@ -90,25 +90,6 @@ var logout = `<div align = "right">
                 </div>`;
 
 var elem = document.getElementById('show');
-/*
-var request = new XMLHttpRequest();
-request.onreadystatechange = function()
-{
-    if(request.readyState === XMLHttpRequest.DONE)
-        {
-            if(request.status === 200)
-            {
-                elem.innerHTML = logout;
-            }
-            else
-            {
-                elem.innerHTML = register;
-            }
-        }
-};
-request.open('GET' , '/check-login' , true);
-request.send(null);
-*/
 var welcome = document.getElementById('welcome');
 
 var request = new XMLHttpRequest();
