@@ -263,7 +263,7 @@ app.get('/welcome' , function(req , res)
 {
     if(req.session && req.session.auth && req.session.auth.userId )
     {
-        pool.query('select mobile from users where user_id = $1',[req.session.auth.userId] , function(err , result){
+        pool.query('select * from users where user_id = $1',[req.session.auth.userId] , function(err , result){
             if(err)
                 {
                     res.status(500).send(err.toString());
