@@ -33,10 +33,20 @@ button.onclick = function()
             {
                 if(request.status === 200)
                     {
-                        var counter = request.responseText;
-                        var elem = document.getElementById('count');
-                        elem.innerHTML  = counter.toString(); 
+                        alert("Thanks For Your Support") 
                     }
+                else if(request.status === 403)
+                {
+                    alert('Plase Login First')
+                }
+                else if(request.status === 404)
+                {
+                    alert('Already Liked')
+                }
+                else
+                {
+                    alert('Something Went Wrong')
+                }
             }
     }
     request.open('GET' , '/counter' , true);
