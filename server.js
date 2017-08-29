@@ -97,6 +97,10 @@ function createTemplate(data) {
                                                 var ul = document.getElementById('comment_list');
                                                 ul.innerHTML =all_comments ;  
                                             }
+                                        else
+                                        {
+                                            alert('Please Login First');
+                                        }
                                     }
                             }
                             var url = '/submitComment/${article_id}?comment='+comment
@@ -319,7 +323,8 @@ app.get('/submitComment/:article_id' , function(req,res)
 {
     var article_id = req.params.article_id;
     var comment = req.query.comment;
-    pool.query("INSERT INTO comment (article_id , content , user_id ) VALUES ($1,$2,27)",[article_id,comment] , function(err)
+    var userId = req.session.auth.userId;
+    pool.query("INSERT INTO comment (article_id , content , user_id ) VALUES ($1,$2,$3)",[article_id,comment,userId] , function(err)
     {
        if(err)
        {
