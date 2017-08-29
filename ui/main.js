@@ -90,7 +90,7 @@ var logout = `<div align = "right">
                 </div>`;
 
 var elem = document.getElementById('show');
-
+/*
 var request = new XMLHttpRequest();
 request.onreadystatechange = function()
 {
@@ -108,7 +108,7 @@ request.onreadystatechange = function()
 };
 request.open('GET' , '/check-login' , true);
 request.send(null);
-
+*/
 var welcome = document.getElementById('welcome');
 
 var request = new XMLHttpRequest();
@@ -122,10 +122,12 @@ request.onreadystatechange = function()
                 name = JSON.parse(name);
                 var message = "hello" + name["mobile"];
                 welcome.innerHTML = message;
+                elem.innerHTML = logout;
             }
             else
             {
                 welcome.innerHTML = "";
+                elem.innerHTML = register;
             }
         }
 };
