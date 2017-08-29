@@ -297,7 +297,7 @@ app.get('/counter' , function (req , res)
 {
     if(req.session && req.session.auth && req.session.auth.userId)
     {
-        pool.query('select like from users where user_id = $1' , [req.session.auth.userId] , function (err , result)
+        pool.query('select * from users where user_id = $1' , [req.session.auth.userId] , function (err , result)
         {
             if(err)
             {
