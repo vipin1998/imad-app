@@ -103,8 +103,9 @@ submit.onclick = function()
     var mobile = mobileInput.value;
     var pswInput = document.getElementById('signup_psw');
     var password = pswInput.value;
+    var name = document.getElementById('name').value;
     request.open('POST' , 'http://vipindhangar1998.imad.hasura-app.io/create-user' , true);
     request.setRequestHeader('Content-Type' , 'application/json');
-    request.send(JSON.stringify({mobile : mobile , password : password}));
+    request.send(JSON.stringify({mobile : mobile , password : password , name : name }));
     return false;
 };
