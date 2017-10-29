@@ -244,7 +244,7 @@ app.post('/loginApp' , function (req,res)
           }
        });
    }
-   if(infoType == 'app')
+   else if(infoType == 'email')
    {
        pool.query('INSERT INTO appUser (email) VALUES ($1)' , [info] , function (err ,result)
        {
