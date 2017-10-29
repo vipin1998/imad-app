@@ -226,6 +226,40 @@ app.post('/create-user' , function (req,res)
    });
 });
 
+app.post('/loginApp' , function (req,res)
+{
+   var info = req.body.userInfo;
+   var infoType = req.body.infoType;
+   if(infoType == 'mobile')
+   {
+       pool.query('INSERT INTO appUser (mobile) VALUES ($1)' , [info] , function (err ,result)
+       {
+          if(err)
+          {
+              res.send('Welcome Back');
+          }
+          else
+          {
+              res.send('Welcome');
+          }
+       });
+   }
+   if(infoType == 'app')
+   {
+       pool.query('INSERT INTO appUser (email) VALUES ($1)' , [info] , function (err ,result)
+       {
+          if(err)
+          {
+              res.send('Welcome Back');
+          }
+          else
+          {
+              res.send('Welcome');
+          }
+       });
+   }
+});
+
 
 app.post('/login' , function (req,res)
 {
