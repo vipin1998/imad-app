@@ -236,7 +236,6 @@ app.post('/loginApp' , function (req,res)
        {
           if(err)
           {
-              //res.status(404).send(err.toString());
               res.json({
                   "message" : "Welcome Back"
               })
