@@ -237,11 +237,15 @@ app.post('/loginApp' , function (req,res)
           if(err)
           {
               //res.status(404).send(err.toString());
-              res.send('Welcome Back');
+              res.json({
+                  "message" : "Welcome Back"
+              })
           }
           else
           {
-              res.send('Welcome');
+              res.json({
+                  "message" : "Welcome"
+              })
           }
        });
    }
